@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="TangJP" />
+
+
+
+<meta name="description" content="Singleton Pattern">
+<meta name="keywords" content="Pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Singleton Pattern">
+<meta property="og:url" content="http://www.tangjp.cc/2016/12/07/Singleton-Pattern/index.html">
+<meta property="og:site_name" content="TangJP">
+<meta property="og:description" content="Singleton Pattern">
+<meta property="og:updated_time" content="2017-10-10T08:25:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Singleton Pattern">
+<meta name="twitter:description" content="Singleton Pattern">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Singleton Pattern | TangJP</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/dog.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">TangJP</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/clover-cc/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pattern/">Pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">游戏后端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">TangJP</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/dog.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">TangJP</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/clover-cc/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Singleton-Pattern" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/07/Singleton-Pattern/" class="article-date">
+      <time datetime="2016-12-07T09:10:27.000Z" itemprop="datePublished">2016-12-07</time>
+</a>
+
+ 
+    <a href="/2016/12/07/Singleton-Pattern/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Singleton Pattern
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pattern/">Pattern</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>单例分为懒汉模式和饿汉模式：</p>
+<h2 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class SingletonClass &#123;  </div><div class="line">      </div><div class="line">     private static final SingletonClass instance = new SingletonClass();   </div><div class="line">      </div><div class="line">      public static SingletonClass <span class="function"><span class="title">getInstance</span></span>() &#123;   </div><div class="line">        <span class="built_in">return</span> instance;   </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      private <span class="function"><span class="title">SingletonClass</span></span>() &#123;   </div><div class="line">           </div><div class="line">      &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h2><p>本文主要分析懒汉模式相关。<br>先说下以前面试时让我写单例模式我的写法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class SingletonClass &#123;  </div><div class="line">      </div><div class="line">     private static SingletonClass instance = null;   </div><div class="line">      </div><div class="line">      public static synchronized SingletonClass <span class="function"><span class="title">getInstance</span></span>() &#123;   </div><div class="line">          <span class="keyword">if</span>(instance==null)  </div><div class="line">              instance=new SingletonClass();  </div><div class="line">        <span class="built_in">return</span> instance;   </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      private <span class="function"><span class="title">SingletonClass</span></span>() &#123;   </div><div class="line">           </div><div class="line">      &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>先看下上面写得代码，这个代码基本没有问题，并且还考虑到了线程的问题，但是如果要我打分的话这段代码顶多60分刚及格。那就先分析一下这段代码，这段代码很简单，而且也能在多线程的情况下保证其正确性，但有个致命缺点就是性能，多个线程同时调用这个函数，那这个的性能就可想而知了，每个线程必须等待一个线程执行完才可以进入，这样性能肯定不能满足需求。<br>再来看下下面的代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class SingletonClass &#123;  </div><div class="line">      </div><div class="line">     private static SingletonClass instance = null;   </div><div class="line">       </div><div class="line">     private int <span class="built_in">test</span>Num;  </div><div class="line">      </div><div class="line">      public static SingletonClass <span class="function"><span class="title">getInstance</span></span>() &#123;   </div><div class="line">        <span class="keyword">if</span>(instance==null)  </div><div class="line">        &#123;  </div><div class="line">            synchronized (SingletonClass.class) &#123;  </div><div class="line">                <span class="keyword">if</span>(instance==null)  </div><div class="line">                &#123;  </div><div class="line">                    instance=new SingletonClass();  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="built_in">return</span> instance;   </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      private <span class="function"><span class="title">SingletonClass</span></span>() &#123;   </div><div class="line">          <span class="built_in">test</span>Num=100;  </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      public int <span class="function"><span class="title">getTestNum</span></span>() &#123;  </div><div class="line">        <span class="built_in">return</span> <span class="built_in">test</span>Num;  </div><div class="line">    &#125;  </div><div class="line">        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码将同步块加到函数里，并且在进入同步块之前有个判断，这样当instance不为空的时候，无论有多少线程调用，效率都会非常高。但是这段代码是有问题的代码。<br>为了了解这段代码的问题所在，那就先分析下Java创建对象时候的内存情况。</p>
+<p>instance=new SingletonClass(); </p>
+<p>这句话在这看似是一句，其实在内存中可以分为一下几步：</p>
+<p>1.在堆中创建一个SingletonClass的类对象。</p>
+<p>2.调用SingletonClass()函数，来初始化。</p>
+<p>3.将类对象地址传递给对象的引用。</p>
+<p>还是没有懂得可看这：</p>
+<p>这个讲的<a href="http://coolxing.iteye.com/blog/1464501" target="_blank" rel="external">this逃逸</a>(我感觉和我说的这个问题属于一个问题，嘻嘻)</p>
+<p>还有这里所讲的<a href="http://zhangjunhd.blog.51cto.com/113473/17124/" target="_blank" rel="external">创建对象及初始化过程</a></p>
+<p>通过这几个步骤，很容易就可以分析出上面的问题所在。</p>
+<p>假如第一个线程进来，此时还未创建对象，instance的值为空，进入同步块，此时执行new对象。而执行顺序是1-&gt;3-&gt;2。在执行完3后，另一个线程进来，此时instance的值已经不为空了，直接返回，之后这个线程来获取testNum，那么获取的值为0.原因是上一个线程还没有执行初始化，这样获取的值就会错误，程序就会出现一些意想不到的bug。</p>
+<p>为了解决上面所说的这些问题，比较完美的单例模式(我自己认为的，其他更好的还没看到。。我见识比较少。。要是有更好的欢迎提出)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class SingletonClass &#123;  </div><div class="line">      </div><div class="line">     private static volatile SingletonClass instance = null;   </div><div class="line">       </div><div class="line">     private int <span class="built_in">test</span>Num;  </div><div class="line">      </div><div class="line">      public static SingletonClass <span class="function"><span class="title">getInstance</span></span>() &#123;   </div><div class="line">        <span class="keyword">if</span>(instance==null)  </div><div class="line">        &#123;  </div><div class="line">            synchronized (SingletonClass.class) &#123;  </div><div class="line">                <span class="keyword">if</span>(instance==null)  </div><div class="line">                &#123;  </div><div class="line">                    instance=new SingletonClass();  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        <span class="built_in">return</span> instance;   </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      private <span class="function"><span class="title">SingletonClass</span></span>() &#123;   </div><div class="line">          <span class="built_in">test</span>Num=100;  </div><div class="line">      &#125;   </div><div class="line">        </div><div class="line">      public int <span class="function"><span class="title">getTestNum</span></span>() &#123;  </div><div class="line">        <span class="built_in">return</span> <span class="built_in">test</span>Num;  </div><div class="line">    &#125;  </div><div class="line">        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不仔细的人肯定认为这段代码和上面那段一样，注意看变量声明那块，这段代码在声明变量的时候加了个关键字volatile。那么现在就来说说这个关键字。<br>在说这个关键字之前得先说下Java的重排序相关(好吧~~这篇说的知识点有点多。。而且很枯燥。。)。</p>
+<p>简单来说，重排序的意思就是你在执行Java代码的时候，程序的运行顺序可能和你所写顺序不同。举个例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">double pi = 3.14; //A</div><div class="line"></div><div class="line">double r = 1.0; //B</div><div class="line"></div><div class="line">double s=pi * r * r; //C</div></pre></td></tr></table></figure>
+<p>一般认为，我书写的是A-&gt;B-&gt;C，那么执行的顺序也应该是A-&gt;B-&gt;C.可是由于重排序的关系执行顺序可能会发生改变，变为B-&gt;A-&gt;C。因为C和A，B有数据依赖关系，所以C的结果是不会变的，而A B之间不存在数据依赖，他们的执行顺便有可能会发生重排序。对于这个例子来说，无论怎么变，都不会影响数据结果。那么来看看这个例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class ReorderExample &#123;  </div><div class="line">    int a=0;  </div><div class="line">    boolean flag=<span class="literal">false</span>;  </div><div class="line">      </div><div class="line">    public void <span class="function"><span class="title">write</span></span>()  </div><div class="line">    &#123;  </div><div class="line">        a=2;    //1  </div><div class="line">        flag=<span class="literal">true</span>;    //2  </div><div class="line">    &#125;  </div><div class="line">      </div><div class="line">    public void <span class="function"><span class="title">read</span></span>()  </div><div class="line">    &#123;  </div><div class="line">        <span class="keyword">if</span>(flag)    //3  </div><div class="line">        &#123;  </div><div class="line">            int i=a*a;  //4  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果有两个线程，一个执行write，一个执行read。问i的值会是多少？<br>首先可以肯定的是值为4.那大家想想有没有可能值为0呢？</p>
+<p>根据前面重排序的理论，a和flag没有数据依赖，那么他们在运行时可能会发生重排序，那么就会变为一个线程运行2-&gt;1 ，在这个线程运行2的时候另一个运行 3-&gt;4 ，也就是运行顺序是2-&gt;3-&gt;4-&gt;1.</p>
+<p>解决方法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">package com.tjp.test;  </div><div class="line">  </div><div class="line">public class ReorderExample &#123;  </div><div class="line">    int a=0;  </div><div class="line">    volatile boolean flag=<span class="literal">false</span>;  </div><div class="line">      </div><div class="line">    public void <span class="function"><span class="title">write</span></span>()  </div><div class="line">    &#123;  </div><div class="line">        a=2;    //1  </div><div class="line">        flag=<span class="literal">true</span>;    //2  </div><div class="line">    &#125;  </div><div class="line">      </div><div class="line">    public void <span class="function"><span class="title">read</span></span>()  </div><div class="line">    &#123;  </div><div class="line">        <span class="keyword">if</span>(flag)    //3  </div><div class="line">        &#123;  </div><div class="line">            int i=a*a;  //4  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只要在flag申明的时候加个volatile就可解决。<br>那么现在就先分析这段代码。</p>
+<p>根据happens-before原则，</p>
+<p>根据程序次序：1 happens-before 2, 3 happens-before 4</p>
+<p>根据volatile规则：2 happens-befoe 3</p>
+<p>根据传递原则：1 happens-before 4</p>
+<p>这样就不会出现上面说的：2-&gt;3-&gt;4-&gt;1这样的结果了。</p>
+<p>这次再来分析一下上面所说的单例模式。</p>
+<p>给instance加上volatile后，会阻止instance重排序，根据规则（对于volatile的读，总是能看到对volatile的最后写入），这样我们new instance的时候，如果instance未写入，其他线程都会取得instance为空，当instance写入后，由于volatile阻止了重排序，这样写入后初始化也完成了，再次获取初始化的值也就是正确的了，也就不会有上面那种错误了。</p>
+<p>按道理文章应该到此结束，单例的相关已经分析完成，但是对于volatile的理解可能还是模棱两可，而且在程序中很容易理解错误。</p>
+<p>很多人认为我把一个变量加上volatile后就能保证多线程同步，该变量的操作就变成了原子操作，这个想法绝对不对！！！</p>
+<p>首先，volatile不能保证同步，他可以阻止重排序，每次读的值是上次赋的值，比如：</p>
+<p>a初始值为0,100个线程去操作。</p>
+<p>a=a+1;</p>
+<p>问a的值是多少？</p>
+<p>答案是1到100都可能。有人会说，不是说volatile读的是上次的值嘛，为什么还会有这种情况。对volatile是读取的是上次的值，可是我们要得分析一下a=a+1的操作。从上层来看这就是一步加法操作，可是电脑不认，我们得从汇编角度来看这段代码，汇编寄存器记号什么的我还给老师了，那就用口述吧。</p>
+<p>1，获取a的值，将a放到寄存器中；</p>
+<p>2，将a自加一；</p>
+<p>3，将结果放回变量地址；</p>
+<p>这个三步，假如A线程获得a的值，++后，还未放回去，B线程再来获取a的值时，获取的是以前的值，这时a的值就会发生错误。当写入后下一个线程过来读取的就是新的a的值。如此继续下去，a的值肯定会和所想值不一样。</p>
+<p>我想现在应该比以前更了解volatile的作用了。</p>
+<p>好吧，稍微总结下：</p>
+<p>程序中使用volatile，可以防止重排序，这样可以免去重排序所带来的未知错误。</p>
+<p>volatile没办法保证同步问题，要解决同步相关还得加synchronized或者lock。</p>
+<p>以上文章是自己的认识，有什么不对请指出，谢谢！</p>
+<p>更多关于多线程的知识请参考：</p>
+<p>“深入理解java内存模型”和“JSR133”这两本书</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/12/07/ThreadLocal/">
+                    ThreadLocal
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/12/07/关于骰子的小算法/">
+                    关于骰子的小算法
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#饿汉模式"><span class="toc-number">1.</span> <span class="toc-text">饿汉模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#懒汉模式"><span class="toc-number">2.</span> <span class="toc-text">懒汉模式</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/07/Singleton-Pattern/" data-title="Singleton Pattern" data-url="http://www.tangjp.cc/2016/12/07/Singleton-Pattern/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"cctang"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+            // Add comment count
+            $(function(){ 
+                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=cctang&threads=2016/12/07/Singleton-Pattern/&callback=?";
+                $.getJSON(jsonUrl, function(result){
+                    $.each(result.response, function(i, field){
+                        var value = field.comments;
+                        if (value > 0) {
+                            $(".count-comment").text(value);
+                            return;
+                        }
+                    })
+                })
+            })
+        
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/12/07/ThreadLocal/" title="上一篇: ThreadLocal">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/12/07/关于骰子的小算法/" title="下一篇: 关于骰子的小算法">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/Memory-Analyzer/">Memory Analyzer</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/ThreadLocal/">ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/Singleton-Pattern/">Singleton Pattern</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/关于骰子的小算法/">关于骰子的小算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/19/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 TangJP
+            </div>
+            <!--<div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>-->
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+            
+            
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
